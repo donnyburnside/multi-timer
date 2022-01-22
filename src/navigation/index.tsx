@@ -14,14 +14,13 @@ export default function Navigation() {
           name="Home"
           component={HomeScreen}
           options={{
-            headerShown: false,
+            title: 'Home',
           }}
         />
         <Stack.Screen
           name="NotFound"
           component={NotFoundScreen}
           options={{
-            headerShown: false,
             title: 'Not Found',
           }}
         />
