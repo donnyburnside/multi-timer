@@ -1,7 +1,15 @@
 import { combineReducers } from 'redux';
 
 export const timersReducer = (state = [], action) => {
-  return state;
+  switch(action.type) {
+    case 'ADD_TIMER':
+      return [...state, {
+        id: Math.random(),
+      }];
+
+    default:
+      return state;
+  }
 };
 
 export const rootReducer = combineReducers({
