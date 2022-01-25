@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function HomeScreen({ navigation, route }) {
+function HomeScreen({ navigation, route, ...props }) {
   return (
     <View style={styles.screen}>
       <Text>Open up App.tsx to start working on your app!</Text>
@@ -17,3 +18,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+const mapStateToProps = (state) => ({
+  //
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  //
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
