@@ -16,7 +16,11 @@ function HomeScreen({ navigation, route, ...props }) {
         data={props.timers}
         renderItem={({ item }) => (
           <View>
-            <Text>{item.title}</Text>
+            <Text>{item.id}</Text>
+            <Button
+              text="Remove Timer"
+              onPress={() => props.removeTimer(item.id)}
+            />
           </View>
         )}
         keyExtractor={(item) => item.id}
@@ -39,7 +43,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  //
+  removeTimer: (id) => dispatch({
+    type: 'REMOVE_TIMER',
+    payload: { id },
+  }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
