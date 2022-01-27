@@ -10,7 +10,9 @@ function AddTimerScreen({ navigation, route, ...props }) {
       <Text>Add a new timer.</Text>
       <Button
         text="Save"
-        onPress={() => props.addTimer()}
+        onPress={() => props.addTimer({
+          onComplete: () => navigation.navigate('Home'),
+        })}
       />
       <Button
         text="Cancel"
@@ -34,7 +36,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addTimer: () => dispatch({ type: 'ADD_TIMER' }),
+  addTimer: ({ onComplete }) => dispatch((dispatch, getState) => {
+    dispatch({ type: 'ADD_TIMER' });
+    return onComplete();
+  }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddTimerScreen);
