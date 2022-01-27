@@ -11,6 +11,9 @@ function AddTimerScreen({ navigation, route, ...props }) {
       <Button
         text="Save"
         onPress={() => props.addTimer({
+          timer: {
+            id: Math.random(),
+          },
           onComplete: () => navigation.navigate('Home'),
         })}
       />
@@ -36,8 +39,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addTimer: ({ onComplete }) => dispatch((dispatch, getState) => {
-    dispatch({ type: 'ADD_TIMER' });
+  addTimer: ({ timer, onComplete }) => dispatch((dispatch, getState) => {
+    dispatch({ type: 'ADD_TIMER', payload: { timer } });
     return onComplete();
   }),
 });
