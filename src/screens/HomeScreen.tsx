@@ -16,7 +16,19 @@ function HomeScreen({ navigation, route, ...props }) {
         data={props.timers}
         renderItem={({ item }) => (
           <View>
-            <Text>{item.id}</Text>
+            <Text>{JSON.stringify(item)}</Text>
+            <Button
+              text="View Timer"
+              onPress={() => navigation.navigate('ViewTimer', {
+                id: item.id,
+              })}
+            />
+            <Button
+              text="Edit Timer"
+              onPress={() => navigation.navigate('EditTimer', {
+                id: item.id,
+              })}
+            />
             <Button
               text="Remove Timer"
               onPress={() => props.removeTimer(item.id)}
@@ -32,14 +44,13 @@ function HomeScreen({ navigation, route, ...props }) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    padding: '16px',
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 
-const mapStateToProps = (state) => ({
-  timers: state.timers
+const mapStateToProps = (state, ownProps) => ({
+  timers: state.timers,
 });
 
 const mapDispatchToProps = (dispatch) => ({
