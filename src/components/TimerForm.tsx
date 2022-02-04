@@ -5,20 +5,33 @@ import { useForm, Controller } from 'react-hook-form';
 import Button from '../components/Button';
 
 const convertDurationToSeconds = ({ hh, mm, ss }) => Number(hh) * 60 * 60 + Number(mm) * 60 + Number(ss);
+const convertSecondsToDuration = (seconds) => {
+  const seconds_num = Number(seconds);
+  return {
+    hh: `${Math.floor(seconds_num / 3600)}`,
+    mm: `${Math.floor(seconds_num / 60) % 60}`,
+    ss: `${seconds_num % 60}`,
+  };
+};
 
 export default function TimerForm({ ...props }) {
+  const defaultValues = props?.timer ? {
+    title: props.timer.title,
+    ...convertSecondsToDuration(props.timer.seconds),
+    // hh: '',
+    // mm: '',
+    // ss: '',
+  } : {
+    title: '',
+    hh: '',
+    mm: '',
+    ss: '',
+  };
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
-    defaultValues: {
-      title: '',
-      hh: '',
-      mm: '',
-      ss: '',
-    }
-  });
+  const { control, handleSubmit, formState: { errors } } = useForm({ defaultValues });
   const onSubmit = (data) => {
     const timer = {
-      id: Math.random(),
+      id: props?.timer?.id || Math.random(),
       title: data.title,
       seconds: convertDurationToSeconds({
         hh: data.hh,
