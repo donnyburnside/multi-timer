@@ -2,6 +2,8 @@ import { createStore, combineReducers } from 'redux';
 
 const timersReducer = (state = [], action) => {
   switch (action.type) {
+    case 'SET_TIMERS':
+      return [...action.payload];
     case 'ADD_TIMER':
       return [...state, {...action.payload}];
     case 'EDIT_TIMER':
