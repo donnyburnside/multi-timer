@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import AddTimerScreen from '../screens/AddTimerScreen';
 import EditTimerScreen from '../screens/EditTimerScreen';
+import ViewTimerScreen from '../screens/ViewTimerScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 
 const Stack = createNativeStackNavigator();
@@ -31,6 +32,13 @@ export default function Navigation() {
           component={EditTimerScreen}
           options={{
             title: 'Edit Timer',
+          }}
+        />
+        <Stack.Screen
+          name="ViewTimer"
+          component={ViewTimerScreen}
+          options={{
+            title: 'View Timer',
           }}
         />
         <Stack.Screen
