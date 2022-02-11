@@ -4,7 +4,7 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useTimers } from '../hooks/timers';
 
 export default function HomeScreen({ navigation, route }) {
-  const { timers, deleteTimer } = useTimers();
+  const { timers, editTimer, deleteTimer } = useTimers();
   return (
     <View style={styles.screen}>
       <Text>You have {timers.length} timers.</Text>
@@ -31,14 +31,20 @@ export default function HomeScreen({ navigation, route }) {
                 <Text>{Number(item.seconds) % 60}</Text>
               </View>
             </View>
-            <Pressable onPress={() => navigation.navigate('ViewTimer', { id: item.id })}>
-              <Text>View</Text>
+            <Pressable onPress={() => editTimer({
+              ...item,
+              running: !item.running,
+            })}>
+              <Text>{item.running ? 'Stop' : 'Start'}</Text>
             </Pressable>
             <Pressable onPress={() => navigation.navigate('EditTimer', { id: item.id })}>
               <Text>Edit</Text>
             </Pressable>
             <Pressable onPress={() => deleteTimer(item.id)}>
               <Text>Delete</Text>
+            </Pressable>
+            <Pressable onPress={() => navigation.navigate('ViewTimer', { id: item.id })}>
+              <Text>View</Text>
             </Pressable>
           </View>
         )}

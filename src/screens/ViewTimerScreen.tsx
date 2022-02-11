@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useTimers } from '../hooks/timers';
 
 export default function ViewTimerScreen({ navigation, route }) {
-  const { timer, deleteTimer } = useTimers(route.params.id);
+  const { timer, editTimer, deleteTimer } = useTimers(route.params.id);
 
   return (
     <View style={styles.screen}>
@@ -26,6 +26,12 @@ export default function ViewTimerScreen({ navigation, route }) {
         </View>
       </View>
       <View>
+        <Pressable onPress={() => editTimer({
+          ...timer,
+          running: !timer.running,
+        })}>
+          <Text>{timer.running ? 'Stop' : 'Start'}</Text>
+        </Pressable>
         <Pressable onPress={() => navigation.navigate('EditTimer', { id: timer.id })}>
           <Text>Edit</Text>
         </Pressable>
