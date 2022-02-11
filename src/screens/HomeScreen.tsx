@@ -4,7 +4,7 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useTimers } from '../hooks/timers';
 
 export default function HomeScreen({ navigation, route }) {
-  const { timers, deleteTimer } = useTimers();
+  const { timers, editTimer, deleteTimer } = useTimers();
   return (
     <View style={styles.screen}>
       <Text>You have {timers.length} timers.</Text>
@@ -15,7 +15,13 @@ export default function HomeScreen({ navigation, route }) {
         data={timers}
         renderItem={({ item }) => (
           <View>
-            <Text>{item.title}</Text>
+            <Text>{JSON.stringify(item)}</Text>
+            <Text>Seconds: {JSON.stringify(item.seconds)}</Text>
+            {/* <Text>WTF: {JSON.stringify(Math.floor((Date.now() - item.timestamp)))}</Text> */}
+            <Text>Date: {JSON.stringify(Date.now())}</Text>
+            <Text>Timestamp: {JSON.stringify(item.timestamp)}</Text>
+            <Text>WOT: {JSON.stringify(Math.floor((Date.now() - item.timestamp) / 1000))}</Text>
+            <Text>Result: {JSON.stringify(item.seconds - Math.floor((Date.now() - item.timestamp) / 1000))}</Text>
             <Text>Running: {`${item.running}`}</Text>
             <View>
               <View>
@@ -31,6 +37,17 @@ export default function HomeScreen({ navigation, route }) {
                 <Text>{Number(item.seconds) % 60}</Text>
               </View>
             </View>
+            <Pressable onPress={() => {
+              if (item.seconds) {
+                return editTimer({
+                  ...item,
+                  running: !item.running ? true : false,
+                  timestamp: !item.running ? Date.now() : 0,
+                });
+              }
+            }}>
+              <Text>{item.running ? 'Stop' : 'Start'}</Text>
+            </Pressable>
             <Pressable onPress={() => navigation.navigate('ViewTimer', { id: item.id })}>
               <Text>View</Text>
             </Pressable>

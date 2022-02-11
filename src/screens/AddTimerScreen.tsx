@@ -24,6 +24,8 @@ export default function AddTimerScreen({ navigation, route }) {
             title: data.title,
             running: false,
             seconds: Number(data.hh) * 60 * 60 + Number(data.mm) * 60 + Number(data.ss),
+            timestamp: 0,
+            // timestamp: Date.now(),
           });
           navigation.navigate('Home');
         }}
